@@ -1,3 +1,12 @@
+# Proof Of Scrub
+
+We don't want no invalid scrubs
+An erroneous scrub is a scrub that doesn't get no love from me
+We'll catch him the passenger side of his best friend's ride
+Using our TEE Sev S N P 
+
+-- TLC roughly
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
