@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import {NitroProver} from "lib/NitroProver/src/NitroProver.sol";
 
-contract PoScrub {
+contract PoScrub is NitroProver {
     bytes32 public twoThirdsMeasurement;
     bytes16 public oneThirdMeasurement;
 
@@ -50,8 +50,7 @@ contract PoScrub {
         require(word1 == twoThirdsMeasurement, "Measurement mismatch");
         require(word2 == oneThirdMeasurement, "Measurement mismatch");
 
-        NitroProver nitro = new NitroProver();
-        nitro._processSignature(signature, pubKey, attestation);
+        _processSignature(signature, pubKey, attestation);
         return true;
     }
 }
