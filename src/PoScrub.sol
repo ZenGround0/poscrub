@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-contract PoScrub {
+import {NitroProver} from "lib/NitroProver/src/NitroProver.sol";
 
+contract PoScrub {
     bytes32 public twoThirdsMeasurement;
     bytes16 public oneThirdMeasurement;
 
@@ -11,9 +12,14 @@ contract PoScrub {
         oneThirdMeasurement = _oneThirdMeasurement;
     }
 
-    function extractMeasurement(bytes memory attestation) public returns (bytes32, bytes16) {
+    function extractMeasurement(
+        bytes memory attestation
+    ) public returns (bytes32, bytes16) {
         // Ensure the data is long enough to contain the measurement field
-        require(attestation.length >= 192, "Data too short for AttestationReport");
+        require(
+            attestation.length >= 192,
+            "Data too short for AttestationReport"
+        );
 
         bytes32 word1;
         bytes16 word2;
@@ -32,5 +38,20 @@ contract PoScrub {
             word2 := mload(add(ptr, 32))
         }
         return (word1, word2);
+    }
+
+    function verifyAttestationForSEVSN(
+        bytes memory attestation,
+        bytes memory signature,
+        bytes memory pubKey
+    ) public returns (bool) {
+        // extract and match measurment
+        (bytes32 word1, bytes16 word2) = extractMeasurement(attestation);
+        require(word1 == twoThirdsMeasurement, "Measurement mismatch");
+        require(word2 == oneThirdMeasurement, "Measurement mismatch");
+
+        NitroProver nitro = new NitroProver();
+        nitro._processSignature(signature, pubKey, attestation);
+        return true;
     }
 }
