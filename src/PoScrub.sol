@@ -6,6 +6,7 @@ import {NitroProver} from "lib/NitroProver/src/NitroProver.sol";
 contract PoScrub is NitroProver {
     bytes32 public twoThirdsMeasurement;
     bytes16 public oneThirdMeasurement;
+    mapping(bytes32 => bytes32) public shaToCommp;
 
     constructor(bytes32 _twoThirdsMeasurement, bytes16 _oneThirdMeasurement) {
         twoThirdsMeasurement = _twoThirdsMeasurement;
@@ -40,7 +41,10 @@ contract PoScrub is NitroProver {
         return (word1, word2);
     }
 
-    function verifyAttestationForSEVSN(
+    // Check that 
+    // 1. the measurement correctly validates the computing environment doing signing
+    // 2. the signature 
+    function verifyAttestationForSEVSNP(
         bytes memory attestation,
         bytes memory signature,
         bytes memory pubKey
@@ -52,5 +56,57 @@ contract PoScrub is NitroProver {
 
         _processSignature(signature, pubKey, attestation);
         return true;
+    }
+
+    function merkleAssociate(bytes memory attestation) public {
+        verifyAttestationForSEVSNP(attestation, signature, pubKey);
+        // TODO implement extractReport, its just extractMeasurement but with a different offset
+        bytes report = extractReport(attestation);
+        
+        bytes32 commp;
+        bytes32 sha;
+        assembly {
+            let ptr := add(report, 32)
+            // Load first 32 bytes as commp
+            commp := mload(ptr)
+            // Load next 32 bytes as sha
+            sha := mload(add(ptr, 32))
+        }
+        shaToCommp[sha] = commp;
+    }
+
+    address constant RANDOMNESS_PRECOMPILE = 0xfE00000000000000000000000000000000000006;
+    function getRandomness(uint64 epoch) public view returns (bytes32) {
+        // Prepare the input data (epoch as a uint256)
+        uint256 input = uint256(epoch);
+
+        // Call the precompile
+        (bool success, bytes memory result) = RANDOMNESS_PRECOMPILE.staticcall(abi.encodePacked(input));
+
+        // Check if the call was successful
+        require(success, "Randomness precompile call failed");
+
+        // Decode and return the result
+        return abi.decode(result, (bytes32));
+    }
+
+    // Proof recency of scrub
+    function recentScrub(bytes memory attestation, uint256 epoch, bytes memory commp) public {
+        verifyAttestationForSEVSNP(attestation, signature, pubKey);
+        require(epoch < block.number - 20160, "Epoch must be from within the last week");
+
+        bytes report = extractReport(attestation);
+        bytes32 drand;
+        bytes32 sha;
+        assembly {
+            let ptr := add(report, 32)
+            // Load first 32 bytes as commp
+            drand := mload(ptr)
+            // Load next 32 bytes as sha
+            sha := mload(add(ptr, 32))
+        }
+        require(shaToCommp[sha] == commp, "Measurement mismatch");
+        bytes32 measuredDrand = getRandomness(epoch);
+        require(drand == measuredDrand, "Drand mismatch");
     }
 }
