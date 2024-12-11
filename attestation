@@ -1,0 +1,121 @@
+~ # /bin/snpguest display report report.bin
+
+Attestation Report (1184 bytes):
+Version:                      3
+Guest SVN:                    0
+
+    Guest Policy (0x30000):
+    ABI Major:     0
+    ABI Minor:     0
+    SMT Allowed:   1
+    Migrate MA:    0
+    Debug Allowed: 0
+    Single Socket: 0
+Family ID:
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+Image ID:
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+VMPL:                         1
+Signature Algorithm:          1
+Current TCB:
+
+TCB Version:
+  Microcode:   72
+  SNP:         22
+  TEE:         0
+  Boot Loader: 9
+
+
+Platform Info (35):
+  SMT Enabled:               1
+  TSME Enabled:              1
+  ECC Enabled:               0
+  RAPL Disabled:             0
+  Ciphertext Hiding Enabled: 0
+
+Author Key Encryption:        false
+Report Data:
+32 c5 8a ce 03 6f 9d 85 db e3 e3 b2 46 ff e9 fe
+b1 3c 10 16 a9 b0 e7 89 b0 12 4b 48 ce 88 e5 68
+e0 44 c8 9c e1 f3 8a 8d e9 f5 25 48 01 36 f6 f0
+a5 0a e5 0c b1 7f ba eb 97 d3 90 3c 02 4f b4 9d
+
+Measurement:
+c2 aa 81 55 98 4d 99 d1 de 82 49 8e cf df e0 2d
+91 9d b9 c5 62 0b 16 7b 11 a1 98 59 9f e0 f7 24
+cc a5 a8 83 39 45 8f 06 80 7a 14 22 4b c2 4c 0d
+
+Host Data:
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+ID Key Digest:
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+Author Key Digest:
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+Report ID:
+0d a7 a7 70 19 1c 69 27 8b a8 04 c8 d8 7f 30 86
+8b e5 a4 e0 19 47 a2 9d 04 95 ef db 33 b9 af 0e
+
+Report ID Migration Agent:
+ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+
+Reported TCB:
+TCB Version:
+  Microcode:   72
+  SNP:         22
+  TEE:         0
+  Boot Loader: 9
+
+Chip ID:
+91 87 cc 4c 76 7c 96 85 f3 35 d4 6e 92 73 98 94
+72 00 9a 84 94 08 38 cd 97 ab 7c 1f 1d 72 ca d5
+ff b3 eb 0f 5b 3d 9e d1 62 a9 41 35 67 86 e5 18
+28 a2 98 21 b2 10 9a 1a c3 ae ce b9 11 2d 75 3c
+
+Committed TCB:
+
+TCB Version:
+  Microcode:   72
+  SNP:         22
+  TEE:         0
+  Boot Loader: 9
+
+Current Build:                38
+Current Minor:                55
+Current Major:                1
+Committed Build:              38
+Committed Minor:              55
+Committed Major:              1
+Launch TCB:
+
+TCB Version:
+  Microcode:   72
+  SNP:         22
+  TEE:         0
+  Boot Loader: 9
+
+
+Signature:
+  R:
+6e 78 c1 8e bd 6c 58 06 84 d2 0f b3 b0 d2 9e c8
+f1 3c 99 12 54 11 af b3 b9 cd a1 20 60 b5 9f dd
+6e 11 7a 6a 7d 65 20 51 49 d8 f5 d7 df 10 9a 20
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+
+  S:
+6a 56 88 3d 70 f2 f0 8f 39 0f a6 3e 9e 6e 55 cb
+3c 23 52 7d f5 d4 d0 18 9e a1 8a 2f ae 36 cc a2
+8d 61 46 56 ee 92 96 96 c9 6a 3f ed aa 0b f0 79
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
